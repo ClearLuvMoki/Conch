@@ -1,0 +1,12 @@
+import "./main.css";
+import "tailwindcss/tailwind.css"
+import React from "react";
+import ReactDOM from "react-dom/client";
+import {NextUIProvider} from "@nextui-org/react";
+import Layout from "./Layout";
+
+ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
+    <NextUIProvider className={"w-full h-full overflow-hidden"}>
+        <Layout/>
+    </NextUIProvider>
+);
