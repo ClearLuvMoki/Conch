@@ -17,6 +17,7 @@ const Sidebar = () => {
                 onClick={() => {
                     navigate("/home", {replace: true})
                 }}
+                className={"text-[#fff]"}
             >
                 Ho
             </Button>

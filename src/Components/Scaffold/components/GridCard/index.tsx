@@ -6,10 +6,11 @@ import {handleCalculateSize} from "@/src/Utils/tools.ts";
 interface GridCardProps {
     componentId: string;
     size: BoxSize;
+    children: React.ReactNode;
 }
 
 const GridCard = React.memo((props: GridCardProps) => {
-    const {componentId, size} = props
+    const {componentId, size, children} = props
     return (
         <div
             style={{
@@ -18,7 +19,7 @@ const GridCard = React.memo((props: GridCardProps) => {
             }}
             data-id={componentId}
         >
-
+            {children}
         </div>
     );
 }, (prevProps, nextProps) => {

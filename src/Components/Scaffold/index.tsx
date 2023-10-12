@@ -15,7 +15,7 @@ import {GridCardHeight, GridCardWidth} from "@/constant/ui.tsx";
 export type BoxSize = '1x1' | '1x2' | '2x1' | '2x2' | '2x4' | '4x2' | '4x4'
 
 interface ScaffoldProps {
-    componentsList: { size: BoxSize, id: string }[]
+    componentsList: { size: BoxSize, id: string, componentRender: React.ReactNode }[]
 }
 
 const Scaffold = React.memo((props: ScaffoldProps) => {
@@ -30,6 +30,7 @@ const Scaffold = React.memo((props: ScaffoldProps) => {
             }
         })
         // 保存实例的引用
+        // @ts-ignore
         $container.current = instance
 
         return () => {
@@ -40,7 +41,7 @@ const Scaffold = React.memo((props: ScaffoldProps) => {
     return (
         <div
             ref={$container}
-            className={"grid w-full h-full overflow-hidden justify-center select-none"}
+            className={"grid w-full h-full overflow-hidden select-none"}
             style={{
                 gridAutoFlow: "dense",
                 gridTemplateColumns: `repeat(auto-fill, ${GridCardWidth})`,
@@ -48,12 +49,15 @@ const Scaffold = React.memo((props: ScaffoldProps) => {
             }}
         >
             {
-                componentsList?.map((info) =>
+                componentsList?.map((content) =>
                     <GridCard
-                        key={info.id}
-                        size={info.size}
-                        componentId={info.id}
-                    />)
+                        key={content.id}
+                        size={content.size}
+                        componentId={content.id}
+                    >
+                        {content.componentRender}
+                    </GridCard>
+                )
             }
         </div>
     );

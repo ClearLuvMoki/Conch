@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
-import {ReactSortable} from "react-sortablejs";
-import Scaffold from "@/Components/Scaffold";
+import HomeHeader from "@/Pages/Home/components/Header";
 
 interface ItemType {
     id: number;
@@ -23,12 +22,13 @@ const Home = () => {
         {id: 0, name: "fiona", width: 200, height: 200},
     ]);
     return (
-        <div data-tauri-drag-region>
-            <Scaffold
-                componentsList={[
-                    {id: "demo", size: "1x1"}
-                ]}
-            />
+        <div className={"w-full h-full p-[20px] flex flex-col"}>
+            <HomeHeader/>
+            {/*<Scaffold*/}
+            {/*    componentsList={[*/}
+            {/*        {id: "demo", size: "1x1", componentRender: <SystemInfoCard/>}*/}
+            {/*    ]}*/}
+            {/*/>*/}
         </div>
     );
 };
