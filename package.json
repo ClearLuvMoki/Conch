@@ -1,5 +1,5 @@
 {
-  "name": "moki",
+  "name": "conch",
   "private": true,
   "version": "0.0.0",
   "scripts": {
@@ -16,13 +16,20 @@
   "devDependencies": {
     "@nextui-org/react": "^2.1.13",
     "@tauri-apps/cli": "^1.5.0",
+    "@types/deep-equal": "^1.0.2",
+    "@types/node": "^20.8.4",
     "@types/react": "^18.2.15",
     "@types/react-dom": "^18.2.7",
+    "@types/sortablejs": "^1.15.3",
     "@vitejs/plugin-react": "^4.0.3",
     "autoprefixer": "^10.4.16",
+    "deep-equal": "^2.2.2",
     "framer-motion": "^10.16.4",
     "postcss": "^8.4.31",
+    "react-icons": "^4.11.0",
     "react-router-dom": "^6.16.0",
+    "react-sortablejs": "^6.1.4",
+    "sortablejs": "^1.15.0",
     "tailwindcss": "^3.3.3",
     "typescript": "^5.0.2",
     "vite": "^4.4.4"

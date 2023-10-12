@@ -7,12 +7,15 @@
     "withGlobalTauri": false
   },
   "package": {
-    "productName": "moki",
-    "version": "0.0.0"
+    "productName": "Conch",
+    "version": "0.0.1"
   },
   "tauri": {
     "allowlist": {
-      "all": false,
+      "window": {
+        "all": true
+      },
+      "all": true,
       "shell": {
         "all": false,
         "open": true
@@ -35,11 +38,17 @@
     },
     "windows": [
       {
+        "fileDropEnabled": false,
         "fullscreen": false,
         "resizable": true,
-        "title": "moki",
-        "width": 800,
-        "height": 600
+        "title": "Conch",
+        "width": 1072,
+        "height": 730,
+        "minWidth": 1072,
+        "minHeight": 730,
+        "decorations": false,
+        "transparent": true,
+        "center": true
       }
     ]
   }
