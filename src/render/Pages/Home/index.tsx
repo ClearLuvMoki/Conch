@@ -1,8 +1,6 @@
 import HomeHeader from "@/Pages/Home/components/Header";
-import {useEffect} from "react";
-import InjectEnv from "@/src/render/RIpc/InjectEnv";
-import IpcChannels from "@/src/common/IpcChannels";
-import to from "await-to-js"
+import Scaffold from "@/Components/Scaffold";
+import SystemGridCard from "@/Components/GridCard/SystemGridCard";
 
 // interface ItemType {
 //     id: number;
@@ -11,20 +9,18 @@ import to from "await-to-js"
 //     height: number
 // }
 
+const BaseList = [
+    {componentId: "systemCard", component: <SystemGridCard/>},
+]
+
 const Home = () => {
-
-    useEffect(() => {
-        handleGetSystemInfo()
-    }, [])
-
-    const handleGetSystemInfo = async () => {
-        const [err, res] = await to(InjectEnv.invoke(IpcChannels.os.get_system_info))
-        console.log(err, res)
-    }
 
     return (
         <div className={"w-full h-full p-[20px] flex flex-col"}>
             <HomeHeader/>
+            <Scaffold
+                componentsList={BaseList}
+            />
         </div>
     );
 };

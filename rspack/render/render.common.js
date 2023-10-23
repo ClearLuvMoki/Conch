@@ -16,7 +16,7 @@ const CommonConfig = {
         alias: {
             '@/src': join(rootPath, './src/'),
             // '@/assets': join(srcRendererPath, '/assets'),
-            // '@/components': join(srcRendererPath, '/components'),
+            '@/Components': join(srcRendererPath, '/Components'),
             '@/Pages': join(srcRendererPath, '/Pages'),
             '@/Utils': join(srcRendererPath, '/Utils'),
             '@/Router': join(srcRendererPath, '/Router'),
