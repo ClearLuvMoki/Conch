@@ -1,7 +1,7 @@
 import React from 'react';
 import deepEqual from "deep-equal";
 import {BaseBox, BoxSize} from "@/Components/Scaffold";
-import {AnimatePresence, motion} from "framer-motion"
+import {motion} from "framer-motion"
 import {Skeleton} from "@nextui-org/react";
 
 interface Props {
