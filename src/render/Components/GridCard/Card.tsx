@@ -1,7 +1,7 @@
 import React from 'react';
 import deepEqual from "deep-equal";
 import {BaseBox, BoxSize} from "@/Components/Scaffold";
-import {motion} from "framer-motion"
+import {AnimatePresence, motion} from "framer-motion"
 import {Skeleton} from "@nextui-org/react";
 
 interface Props {
@@ -91,21 +91,38 @@ const GridCard = React.memo(({id = "", size, style = {}, className = "", loading
             layout
             initial={{opacity: 0}}
             animate={{opacity: 1}}
-            className={className}
             style={{
                 width: $BoxStyle.width,
                 height: $BoxStyle.height,
-                background: "rgb(250, 250, 250)",
                 gridRow: $BoxStyle.gridRow,
                 gridColumn: $BoxStyle.gridColum,
+                position: "relative",
+                overflow: "hidden",
+                background: "rgb(250, 250, 250)",
                 borderRadius: 14,
                 boxShadow: "0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)",
-                ...style
             }}
         >
             {
-                loading ? <Loading/> : (children)
+                loading && (
+                    <motion.div className={"absolute w-full h-full left-0 top-0 z-10 bg-[rgb(250,250,250)]"}>
+                        <Loading/>
+                    </motion.div>
+                )
             }
+            <motion.div
+                layout
+                initial={{opacity: 0}}
+                animate={{opacity: 1}}
+                className={className}
+                style={{
+                    width: "100%",
+                    height: "100%",
+                    ...style
+                }}
+            >
+                {children}
+            </motion.div>
         </motion.div>
     );
 }, (prevProps, nextProps) => {

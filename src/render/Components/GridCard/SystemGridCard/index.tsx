@@ -8,6 +8,7 @@ import IpcChannels from "@/src/common/IpcChannels";
 import {motion} from 'framer-motion';
 import dayjs from 'dayjs'
 import duration from 'dayjs/plugin/duration'
+import {useUpdateEffect} from 'react-use';
 
 dayjs.extend(duration);
 
@@ -39,10 +40,8 @@ const SystemGridCard = React.memo(() => {
     const chartsRef = useRef<any>();
 
     useEffect(() => {
-        const rootDom = document.getElementById("SystemGridCard-charts")
-        if (!rootDom) return;
-        const cpuUsage = ((state.params?.cpu?.usage || 0) / 100);
-        const memoryUsage = ((100 - (state.params?.memory?.freeMemPercentage || 0)) / 100);
+        const cpuUsage = ((state.params?.cpu?.usage || 0) / 100) || 0;
+        const memoryUsage = ((100 - (state.params?.memory?.freeMemPercentage || 0)) / 100) || 0;
         const chart = new Chart({
             container: 'SystemGridCard-charts',
         });
@@ -50,6 +49,7 @@ const SystemGridCard = React.memo(() => {
             type: "view",
             width: 170,
             height: 170,
+            coordinate: {type: "radial", innerRadius: 0.2},
             data: [
                 {
                     name: 'Memory Usage',
@@ -62,7 +62,6 @@ const SystemGridCard = React.memo(() => {
                     color: '#a0ff03',
                 },
             ],
-            coordinate: {type: "radial", innerRadius: 0.2},
             children: [
                 {
                     type: "interval",
@@ -81,9 +80,15 @@ const SystemGridCard = React.memo(() => {
                         shadowBlur: 20,
                         shadowOffsetX: -2,
                         shadowOffsetY: -5,
+                        transition: "all .3s"
                     },
+                    class: "transition-all",
                     animate: {
-                        enter: {type: "waveIn", easing: "easing-out-bounce", duration: 1000},
+                        enter: {
+                            type: 'fadeIn',
+                            easing: 'easing-out-bounce',
+                            duration: 1000,
+                        }
                     },
                     axis: false,
                 },
@@ -107,25 +112,26 @@ const SystemGridCard = React.memo(() => {
         }
     }, [])
 
+    useUpdateEffect(() => {
+        const cpuUsage = ((state.params?.cpu?.usage || 0) / 100) || 0;
+        const memoryUsage = ((100 - (state.params?.memory?.freeMemPercentage || 0)) / 100) || 0;
+        chartsRef.current.changeData([
+            {
+                name: 'Memory Usage',
+                percent: memoryUsage,
+                color: '#1ad5de',
+            },
+            {
+                name: 'Cpu Usage',
+                percent: cpuUsage,
+                color: '#a0ff03',
+            },
+        ])
+    }, [state?.params])
+
     const handleGetSystemInfo = async () => {
         const [_, res] = await to(InjectEnv.invoke(IpcChannels.os.get_system_info))
         console.log(res, 'ress')
-        const cpuUsage = ((res?.cpu?.usage || 0) / 100);
-        const memoryUsage = ((100 - (res?.memory?.freeMemPercentage || 0)) / 100);
-        if (chartsRef.current) {
-            chartsRef.current.data([
-                {
-                    name: 'Memory Usage',
-                    percent: memoryUsage,
-                    color: '#1ad5de',
-                },
-                {
-                    name: 'Cpu Usage',
-                    percent: cpuUsage,
-                    color: '#a0ff03',
-                },
-            ])
-        }
         setState((prevState) => ({...prevState, loading: false, params: res}))
     }
 
@@ -137,7 +143,7 @@ const SystemGridCard = React.memo(() => {
                 <div>Host Name: {state.params?.hostname}</div>
                 <div>Cpu Count: {state.params?.cpu.count}</div>
                 <div>Cpu Usage: {(state.params?.cpu.usage || 0).toFixed(2)}%</div>
-                <div>Memory Usage: {((100 - (state.params?.memory.freeMemPercentage))).toFixed(2)}%</div>
+                <div>Memory Usage: {((100 - (state.params?.memory.freeMemPercentage || 0))).toFixed(2)}%</div>
                 <div>Uptimes: {dayjs.duration((state.params?.uptime || 0), 'seconds').format('HH:mm')}</div>
             </div>
             <motion.div
