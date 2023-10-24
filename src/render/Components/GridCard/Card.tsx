@@ -2,15 +2,38 @@ import React from 'react';
 import deepEqual from "deep-equal";
 import {BaseBox, BoxSize} from "@/Components/Scaffold";
 import {motion} from "framer-motion"
+import {Skeleton} from "@nextui-org/react";
 
 interface Props {
+    id: string;
     size: BoxSize;
     children: React.ReactNode;
     style?: React.CSSProperties;
     className?: string;
+    loading?: boolean;
 }
 
-const GridCard = React.memo(({size, style = {}, className = "", children}: Props) => {
+export interface GridCardState<T> {
+    loading: boolean;
+    error: {
+        isError: boolean;
+        errorInfo: string;
+    };
+    params: T
+}
+
+
+const Loading = () => {
+    return <div className="w-full h-full flex flex-col gap-2 justify-center px-[20px]">
+        <Skeleton className="h-3 w-3/5 rounded-lg"/>
+        <Skeleton className="h-3 w-2/3 rounded-lg"/>
+        <Skeleton className="h-3 w-2/5 rounded-lg"/>
+        <Skeleton className="h-3  rounded-lg"/>
+        <Skeleton className="h-3 w-4/5 rounded-lg"/>
+    </div>
+}
+
+const GridCard = React.memo(({id = "", size, style = {}, className = "", loading = false, children}: Props) => {
 
     const $BoxStyle = React.useMemo(() => {
         switch (size) {
@@ -64,6 +87,7 @@ const GridCard = React.memo(({size, style = {}, className = "", children}: Props
 
     return (
         <motion.div
+            id={id}
             layout
             initial={{opacity: 0}}
             animate={{opacity: 1}}
@@ -79,7 +103,9 @@ const GridCard = React.memo(({size, style = {}, className = "", children}: Props
                 ...style
             }}
         >
-            {children}
+            {
+                loading ? <Loading/> : (children)
+            }
         </motion.div>
     );
 }, (prevProps, nextProps) => {

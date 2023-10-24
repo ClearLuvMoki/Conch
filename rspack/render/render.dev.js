@@ -22,6 +22,10 @@ let Config = {
         ]
     },
     module: Module,
+    watchOptions: {
+        ignored: /node_modules/,
+        poll: true,
+    },
     devServer: {
         setupMiddlewares(middlewares) {
             let args = ['run', 'dev:main'];
