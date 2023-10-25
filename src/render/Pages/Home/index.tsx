@@ -1,6 +1,6 @@
 import HomeHeader from "@/Pages/Home/components/Header";
 import Scaffold from "@/Components/Scaffold";
-import SystemGridCard from "@/Components/GridCard/SystemGridCard";
+import {SystemGridCard, WifiGridCard} from "@/Components/GridCard";
 
 // interface ItemType {
 //     id: number;
@@ -10,7 +10,8 @@ import SystemGridCard from "@/Components/GridCard/SystemGridCard";
 // }
 
 const BaseList = [
-    {componentId: "systemCard", component: <SystemGridCard/>},
+    {componentId: "system-card", component: <SystemGridCard/>},
+    {componentId: "wifi-card", component: <WifiGridCard/>},
 ]
 
 const Home = () => {

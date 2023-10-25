@@ -131,7 +131,6 @@ const SystemGridCard = React.memo(() => {
 
     const handleGetSystemInfo = async () => {
         const [_, res] = await to(InjectEnv.invoke(IpcChannels.os.get_system_info))
-        console.log(res, 'ress')
         setState((prevState) => ({...prevState, loading: false, params: res}))
     }
 
