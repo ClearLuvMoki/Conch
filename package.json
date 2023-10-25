@@ -1,8 +1,9 @@
 {
   "name": "conch",
   "private": true,
-  "version": "1.0.0",
+  "version": "0.1.0",
   "main": "src/main/index.ts",
+  "author": "ClearLuvMoki <2893096286@qq.cn>",
   "scripts": {
     "dev": "npm run dev:render",
     "dev:render": "rspack serve -c ./rspack/render/render.dev.js",
@@ -53,5 +54,40 @@
       "!node_modules",
       "./index.html"
     ]
+  },
+  "build": {
+    "appId": "com.conch.clearluvmoki",
+    "asar": true,
+    "productName": "Conch",
+    "asarUnpack": "**\\*.{node,dll}",
+    "publish": [
+      {
+        "provider": "generic",
+        "url": ""
+      }
+    ],
+    "win": {
+      "icon": "release/app/resources/desIcon.png",
+      "target": [
+        "nsis"
+      ],
+      "publisherName": "Hangzhou Tianhuilan Technology Co., Ltd.",
+      "requestedExecutionLevel": "asInvoker",
+      "rfc3161TimeStampServer": "http://timestamp.digicert.com",
+      "timeStampServer": "http://timestamp.digicert.com"
+    },
+    "directories": {
+      "app": "release/app",
+      "output": "release/build"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "Conch",
+      "deleteAppDataOnUninstall": true
+    }
   }
 }
