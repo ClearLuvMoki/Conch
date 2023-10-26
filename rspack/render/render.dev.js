@@ -20,18 +20,26 @@ let Config = {
         poll: true,
     },
     devServer: {
+        port: process.env.PORT || 8888,
         setupMiddlewares(middlewares) {
             let args = ['run', 'dev:main'];
             spawn('npm', args, {
                 shell: true,
-                stdio: 'ignore',
+                stdio: 'inherit',
             })
                 .on('error', (spawnError) => {
                     console.log(`Rspack --- Main Server err:${spawnError}`);
                 });
             return middlewares;
         }
-    }
+    },
+    builtins: {
+        html: [
+            {
+                template: join(rootPath, "./index.html")
+            }
+        ]
+    },
 };
 
 Config = Object.assign(Config, {...CommonConfig})

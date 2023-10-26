@@ -34,12 +34,6 @@ const CommonConfig = {
         },
         extensions: ['.*', '.js', '.jsx', '.ts', '.tsx', '.json'],
     },
-    builtins: {
-        html: [
-            {
-                template: join(rootPath, "./index.html")
-            }
-        ]
-    },
+
 }
 module.exports = CommonConfig;

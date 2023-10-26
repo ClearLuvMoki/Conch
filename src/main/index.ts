@@ -2,9 +2,8 @@ import {BrowserWindow, app} from "electron"
 import {OSIpc} from "./Ipc"
 import {resolve} from "path";
 import {isDev} from "@/src/main/main-utils";
-import UserDatabase from "@/src/main/database/User/user.service";
 
-const LoadUrl: string = isDev ? "http:localhost:8080" : `file://${resolve(__dirname, '../render/', 'index.html')}`;
+const LoadUrl: string = isDev ? `http:localhost:${process.env.PORT || 8888}` : `file://${resolve(__dirname, '../render/', 'index.html')}`;
 export let mainWindow: BrowserWindow = null;
 
 
@@ -44,9 +43,6 @@ const createWindow = async () => {
     return mainWindow.loadURL(LoadUrl)
 }
 app.whenReady().then(() => {
-    setTimeout(() => {
-        UserDatabase.addUser()
-    }, 5000)
     return createWindow();
 });
 

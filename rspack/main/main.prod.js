@@ -1,5 +1,5 @@
-const { join } = require('path');
-const { srcMainPath, releaseMainPath, srcPath } = require('../paths');
+const {join} = require('path');
+const {srcMainPath, releaseMainPath, srcPath, rootPath, appPath} = require('../paths');
 const CommonConfig = require('../render/render.common');
 const Module = require('../render/render.module');
 
@@ -19,8 +19,19 @@ let MainProdConfig = {
         clean: true,
     },
     module: Module,
+    builtins: {
+        copy: {
+            patterns: [
+                {
+                    from: join(rootPath, "./node_modules/better-sqlite3/build/Release/better_sqlite3.node"),
+                    to: join(appPath, "./build"),
+                    force: true,
+                }
+            ]
+        }
+    }
 };
 
-Object.assign(MainProdConfig, { ...CommonConfig });
+Object.assign(MainProdConfig, {...CommonConfig});
 
 module.exports = MainProdConfig;

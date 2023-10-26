@@ -26,5 +26,6 @@ dist-ssr
 ./app/build/*
 ./app/dist/*
 ./app/*.lock
+./release/*
 
 

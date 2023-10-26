@@ -4,7 +4,6 @@ import {BetterSqlite3ConnectionOptions} from "typeorm/driver/better-sqlite3/Bett
 import {app} from "electron";
 import {UserModel} from "./User/user.model";
 
-
 export class DataBase {
     dataSource: DataSource;
 

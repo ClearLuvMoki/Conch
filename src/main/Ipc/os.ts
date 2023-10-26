@@ -1,11 +1,16 @@
 import {ipcMain} from "electron"
 import IpcChannels from "@/src/common/IpcChannels";
 import MainLogger from "@/src/main/logger";
+import UserDatabase from "@/src/main/database/User/user.service";
 
 const os = require('node-os-utils');
 const wifi = require("node-wifi");
 
 const OSIPc = () => {
+
+    ipcMain.handle("test:add", () => {
+        return UserDatabase.addUser()
+    })
 
 
     // 处理wifi信息

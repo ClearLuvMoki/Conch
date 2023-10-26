@@ -9,6 +9,7 @@
     "resolveJsonModule": true,
     "jsx": "react-jsx",
     "module": "commonjs",
+    "strict": false,
     "noUnusedLocals": true,
     "emitDecoratorMetadata":true,
     "moduleResolution": "node",

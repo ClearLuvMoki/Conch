@@ -17,6 +17,13 @@ let ProdConfig = {
         clean: true,
     },
     module: Module,
+    builtins: {
+        html: [
+            {
+                template: join(rootPath, "./index.html")
+            }
+        ]
+    },
 };
 
 ProdConfig = Object.assign(ProdConfig, {...CommonConfig});

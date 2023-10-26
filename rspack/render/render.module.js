@@ -1,7 +1,9 @@
+const nodeRegex = /\.node$/;
+
+
 /**
  * @type {import('@rspack/cli').Configuration}
  */
-
 module.exports = {
     rules: [
         {
@@ -21,5 +23,13 @@ module.exports = {
             ],
             type: 'css',
         },
+        {
+            test: nodeRegex,
+            use: [
+                {
+                    loader: 'native-addon-loader',
+                }
+            ]
+        }
     ]
 }

@@ -1,11 +1,11 @@
-import {Entity, PrimaryColumn, Column} from "typeorm";
+import {Entity, PrimaryGeneratedColumn, Column} from "typeorm";
 
-@Entity("user-info")
+@Entity("users")
 export class UserModel {
-    @PrimaryColumn('uuid', { comment: '主键' })
+    @PrimaryGeneratedColumn('uuid', {comment: '主键'})
     id: string;
 
-    @Column({type: "varchar"})
-    name: string
+    @Column("text", {nullable: true})
+    name: string;
 }
 
