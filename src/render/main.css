@@ -36,4 +36,16 @@
             opacity: 0 !important;
         }
     }
+
+    .drag-window {
+        -webkit-app-region: drag;
+    }
+
+    .no-drag-window {
+        -webkit-app-region: no-drag;
+    }
+
+
 }
+
+

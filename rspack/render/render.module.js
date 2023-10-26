@@ -1,5 +1,5 @@
 const nodeRegex = /\.node$/;
-
+const assetsRegex = /\.(jpe?g|png|gif|pdf|svg)$/;
 
 /**
  * @type {import('@rspack/cli').Configuration}
@@ -22,6 +22,10 @@ module.exports = {
                 },
             ],
             type: 'css',
+        },
+        {
+            test: assetsRegex,
+            type: 'asset/resource',
         },
         {
             test: nodeRegex,

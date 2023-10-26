@@ -6,12 +6,13 @@
       "DOM.Iterable",
       "ESNext"
     ],
+    "checkJs": false,
     "resolveJsonModule": true,
     "jsx": "react-jsx",
     "module": "commonjs",
     "strict": false,
     "noUnusedLocals": true,
-    "emitDecoratorMetadata":true,
+    "emitDecoratorMetadata": true,
     "moduleResolution": "node",
     "experimentalDecorators": true,
     "noUnusedParameters": true,
@@ -38,6 +39,9 @@
       ],
       "@/Utils/*": [
         "./src/render/Utils/*"
+      ],
+      "@/resources/*": [
+        "./app/resources/*"
       ]
     }
   },
