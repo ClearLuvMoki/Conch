@@ -1,10 +1,14 @@
 import {BrowserWindow, app} from "electron"
 import {OSIpc} from "./Ipc"
 import {resolve} from "path";
+import {isDev} from "@/src/main/main-utils";
+import UserDatabase from "@/src/main/database/User/user.service";
 
-const LoadUrl: string = "http:localhost:8080";
+const LoadUrl: string = isDev ? "http:localhost:8080" : `file://${resolve(__dirname, '../render/', 'index.html')}`;
 export let mainWindow: BrowserWindow = null;
 
+
+const iconPath = resolve(__dirname, "../../app/resources/desktop-icon.png");
 
 const initData = () => {
     return new Promise(() => {
@@ -24,6 +28,7 @@ const createWindow = async () => {
         useContentSize: true,
         transparent: true,
         frame: false,
+        icon: iconPath,
         webPreferences: {
             devTools: true,
             webviewTag: true,
@@ -32,13 +37,16 @@ const createWindow = async () => {
             allowRunningInsecureContent: true,
             nodeIntegrationInSubFrames: true,
             plugins: true,
-            preload: resolve(__dirname, "../preload/index.js")
+            preload: resolve(__dirname, isDev ? "../preload/index.js" : "./preload.js")
         },
     });
     initData();
     return mainWindow.loadURL(LoadUrl)
 }
 app.whenReady().then(() => {
+    setTimeout(() => {
+        UserDatabase.addUser()
+    }, 5000)
     return createWindow();
 });
 

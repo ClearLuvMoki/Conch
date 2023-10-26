@@ -14,13 +14,6 @@ let Config = {
     entry: {
         main: join(srcRendererPath, "./main.tsx")
     },
-    builtins: {
-        html: [
-            {
-                template: join(rootPath, "./index.html")
-            }
-        ]
-    },
     module: Module,
     watchOptions: {
         ignored: /node_modules/,
