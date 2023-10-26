@@ -28,6 +28,7 @@ const createWindow = async () => {
         transparent: true,
         frame: false,
         icon: iconPath,
+        hasShadow: true,
         webPreferences: {
             devTools: true,
             webviewTag: true,

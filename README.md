@@ -3,6 +3,7 @@
 ## Add better-sqlite3
 
 > node >= 18.12.0
+> python = 3.11.0 (3.12.0会造成rebuild失败)
 
 ```shell
 pnpm install better-sqlite3 @electron/rebuild -D

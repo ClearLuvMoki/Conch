@@ -11,7 +11,8 @@ module.exports = {
         extend: {
             colors: {
                 PrimaryBackground: "#f3f6fd",
-                PrimaryBlack: "rgb(45,46,51)"
+                PrimaryBlack: "rgb(45,46,51)",
+                NoteTextColor: "rgba(55, 53, 47, 0.5)"
             }
         }
     },
