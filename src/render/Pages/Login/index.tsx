@@ -1,8 +1,40 @@
 import Icon from "@/resources/desktop-icon.png"
-import {Button, Image, Input, Divider} from "@nextui-org/react";
+import {Button, Divider, Image, Input} from "@nextui-org/react";
+import InjectEnv from "@/src/render/RIpc/InjectEnv";
+import IpcChannels from "@/src/common/IpcChannels";
+import {IpcResults, IpcResultsCode} from "@/types/ipc";
+import toast from "react-hot-toast";
+import {useState} from "react";
 
+interface State {
+    loading: boolean;
+    nickName: string;
+    password: string;
+}
 
 const Login = () => {
+    const [state, setState] = useState<State>({
+        loading: false,
+        nickName: "",
+        password: ""
+    })
+
+
+    const handleLogin = () => {
+        setState((prevState) => ({...prevState, loading: true}))
+        InjectEnv.invoke(IpcChannels.user.add_user, {nickName: state.nickName, password: state.password})
+            .then((res: IpcResults<any, string>) => {
+                if (res.code === IpcResultsCode.error) {
+                    toast.error(res.errMsg)
+                } else {
+                    toast.success("登录成功!")
+                }
+            })
+            .finally(() => {
+                setState((prevState) => ({...prevState, loading: false}))
+            })
+    };
+
     return (
         <div
             className={"w-full h-full overflow-hidden bg-[#fff] drag-window flex items-center justify-center"}
@@ -19,19 +51,36 @@ const Login = () => {
                     <Input
                         label="昵称"
                         size={"sm"}
+                        onChange={(event) => {
+                            setState((prevState) => ({...prevState, nickName: event.target.value}))
+                        }}
                     />
                     <Input
                         label="密码"
                         size={"sm"}
+                        type={"password"}
+                        onChange={(event) => {
+                            setState((prevState) => ({...prevState, password: event.target.value}))
+                        }}
                     />
                 </div>
                 <div className={"flex gap-1 mt-3 w-full"}>
-                    <Button className={"w-1/2"} fullWidth={true} variant="shadow">重置</Button>
+                    <Button
+                        className={"w-1/2"}
+                        fullWidth={true}
+                        variant="shadow"
+                        onPress={() => {
+                            setState((prevState) => ({...prevState, nickName: "", password: ""}))
+                        }}
+                    >重置</Button>
                     <Button
                         className={"w-1/2 text-white"}
                         fullWidth={true}
                         variant="shadow"
                         color="primary"
+                        onPress={() => {
+                            handleLogin()
+                        }}
                     >
                         登录
                     </Button>

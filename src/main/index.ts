@@ -2,6 +2,8 @@ import {BrowserWindow, app} from "electron"
 import {OSIpc} from "./Ipc"
 import {resolve} from "path";
 import {isDev} from "@/src/main/main-utils";
+import MainLogger from "@/src/main/logger";
+import UserDatabase from "@/src/main/database/User/user.service";
 
 const LoadUrl: string = isDev ? `http:localhost:${process.env.PORT || 8888}` : `file://${resolve(__dirname, '../render/', 'index.html')}`;
 export let mainWindow: BrowserWindow = null;
@@ -14,10 +16,21 @@ const initData = () => {
         try {
             OSIpc()
         } catch (e) {
-            console.log("Init IPC error", e)
+            MainLogger.error(`Init IPC error: ${JSON.stringify(e)}`)
         }
     })
 }
+
+const initDatabase = () => {
+    return new Promise(() => {
+        try {
+            UserDatabase.init()
+        } catch (e) {
+            MainLogger.error(`Init Database error: ${JSON.stringify(e)}`)
+        }
+    })
+}
+
 const createWindow = async () => {
     mainWindow = new BrowserWindow({
         width: 1072,
@@ -41,6 +54,7 @@ const createWindow = async () => {
         },
     });
     initData();
+    initDatabase();
     return mainWindow.loadURL(LoadUrl)
 }
 app.whenReady().then(() => {

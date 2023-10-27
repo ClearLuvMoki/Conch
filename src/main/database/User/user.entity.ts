@@ -1,11 +1,16 @@
 import {Entity, PrimaryGeneratedColumn, Column} from "typeorm";
+import {IsNotEmpty} from "class-validator";
 
 @Entity("users")
-export class UserModel {
+export class UserEntity {
     @PrimaryGeneratedColumn('uuid', {comment: '主键'})
     id: string;
 
+
     @Column("text", {nullable: true})
-    name: string;
+    nickName: string;
+
+    @Column("text", {nullable: true})
+    password: string;
 }
 

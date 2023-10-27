@@ -1,4 +1,7 @@
 const IpcChannels = {
+    user: {
+      add_user: "add:user_account"
+    },
     debug: {
       send_logger_to_render: "notice:sendLoggerToRender"
     },

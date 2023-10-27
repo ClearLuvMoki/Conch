@@ -13,7 +13,7 @@ const Layout = () => {
 
     const handleInitIpc = () => {
         InjectEnv.ipcOn(IpcChannels.debug.send_logger_to_render, (_, params) => {
-            logger.info(params)
+            logger.error(params)
         })
     }
 
