@@ -1,0 +1,56 @@
+{
+  "compilerOptions": {
+    "target": "es2021",
+    "lib": [
+      "DOM",
+      "DOM.Iterable",
+      "ESNext"
+    ],
+    "checkJs": false,
+    "resolveJsonModule": true,
+    "jsx": "react-jsx",
+    "module": "commonjs",
+    "strict": false,
+    "noUnusedLocals": true,
+    "emitDecoratorMetadata": true,
+    "moduleResolution": "node",
+    "experimentalDecorators": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+    "allowSyntheticDefaultImports": true,
+    "paths": {
+      "@/constant/*": [
+        "./src/constant/*"
+      ],
+      "@/src/*": [
+        "./src/*"
+      ],
+      "@/Components/*": [
+        "./src/render/Components/*"
+      ],
+      "@/Layout/*": [
+        "./src/render/Layout/*"
+      ],
+      "@/Pages/*": [
+        "./src/render/Pages/*"
+      ],
+      "@/Router/*": [
+        "./src/render/Router/*"
+      ],
+      "@/Utils/*": [
+        "./src/render/Utils/*"
+      ],
+      "@/resources/*": [
+        "./app/resources/*"
+      ]
+    }
+  },
+  "include": [
+    "src"
+  ],
+  "ts-node": {
+    "require": [
+      "tsconfig-paths/register"
+    ]
+  }
+}
