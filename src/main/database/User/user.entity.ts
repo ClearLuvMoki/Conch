@@ -8,9 +8,11 @@ export class UserEntity {
 
 
     @Column("text", {nullable: true})
+    @IsNotEmpty({message: "昵称不能为空!"})
     nickName: string;
 
     @Column("text", {nullable: true})
+    @IsNotEmpty({message: "密码不能为空!"})
     password: string;
 }
 

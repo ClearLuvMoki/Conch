@@ -7,7 +7,6 @@ import {ipcMain} from "electron";
 import IpcChannels from "@/src/common/IpcChannels";
 import {IpcResults, IpcResultsCode} from "@/types/ipc";
 import {UserEntity} from "@/src/main/database/User/user.entity";
-import {UserDto} from "@/src/main/database/User/user.dto";
 
 
 class UserService {
@@ -44,11 +43,11 @@ class UserService {
             })
     }
 
-    public async addUser(user: UserDto): Promise<IpcResults<any, string>> {
+    public async addUser(user: UserEntity): Promise<IpcResults<any, string>> {
         return new Promise(async (resolve) => {
             try {
                 await this.databaseInit();
-                const data = new UserDto();
+                const data = new UserEntity();
                 data.nickName = user?.nickName;
                 data.password = user?.password;
                 const [validateErr, validateRes] = await to(validate(data));
@@ -58,7 +57,6 @@ class UserService {
                         errMsg: JSON.stringify(validateErr)
                     })
                 }
-                console.log(data, validateErr, validateRes)
                 if (validateRes?.length > 0) {
                     const err = validateRes[0];
                     const errMessage = Object.values(err.constraints)?.[0] || "未知错误!";
@@ -67,13 +65,8 @@ class UserService {
                         errMsg: errMessage
                     })
                 }
-
-                const $user = new UserEntity();
-                $user.nickName = data?.nickName;
-                $user.password = data?.password;
-                const [saveUserErr, saveUserRes] = await to(this.dataSource.manager.save($user));
+                const [saveUserErr, saveUserRes] = await to(this.dataSource.manager.save(data));
                 if (saveUserErr) {
-                    console.log(saveUserErr, 'saveUserErr')
                     return resolve({
                         code: IpcResultsCode.error,
                         errMsg: JSON.stringify(saveUserErr)
