@@ -65,6 +65,24 @@ class UserService {
                         errMsg: errMessage
                     })
                 }
+                const [findErr, findUsers] = await to(
+                    this.dataSource
+                        .createQueryBuilder(UserEntity, "user")
+                        .getMany()
+                );
+                if (findErr) {
+                    return resolve({
+                        code: IpcResultsCode.error,
+                        errMsg: JSON.stringify(findErr)
+                    })
+                }
+                if (findUsers?.length > 3) {
+                    return resolve({
+                        code: IpcResultsCode.error,
+                        errMsg: "本地账号数最多只能新建三个!"
+                    })
+                }
+
                 const [saveUserErr, saveUserRes] = await to(this.dataSource.manager.save(data));
                 if (saveUserErr) {
                     return resolve({
