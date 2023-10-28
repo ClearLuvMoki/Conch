@@ -87,11 +87,35 @@ class UserService {
         })
     }
 
+    public async findAllAccounts() {
+        return new Promise(async (resolve) => {
+            const [findErr, findUsers] = await to(
+                this.dataSource
+                    .createQueryBuilder(UserEntity, "user")
+                    .getMany()
+            );
+            if (findErr) {
+                return resolve({
+                    code: IpcResultsCode.error,
+                    errMsg: JSON.stringify(findErr)
+                })
+            }
+            return resolve({
+                code: IpcResultsCode.success,
+                data: findUsers || []
+            })
+
+        })
+    }
+
 
     public init() {
         this.databaseInit();
         ipcMain.handle(IpcChannels.user.add_user, (_, user) => {
             return this.addUser(user);
+        });
+        ipcMain.handle(IpcChannels.user.find_all_user, (_) => {
+            return this.findAllAccounts();
         })
     }
 }

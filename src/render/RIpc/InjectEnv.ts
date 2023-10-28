@@ -1,6 +1,8 @@
 // @ts-nocheck
+import {IpcResults} from "@/types/ipc";
+
 export default class InjectEnv {
-  public static invoke(channel: string, ...arg: any[]) {
+  public static invoke(channel: string, ...arg: any[]): Promise<IpcResults<any, string>> {
     return window.__IPC__.invoke(channel, ...arg);
   }
 

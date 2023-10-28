@@ -1,4 +1,4 @@
-import {Entity, PrimaryGeneratedColumn, Column} from "typeorm";
+import {Entity, PrimaryGeneratedColumn, Column, CreateDateColumn} from "typeorm";
 import {IsNotEmpty} from "class-validator";
 
 @Entity("users")
@@ -14,5 +14,9 @@ export class UserEntity {
     @Column("text", {nullable: true})
     @IsNotEmpty({message: "密码不能为空!"})
     password: string;
+
+    @CreateDateColumn({comment: '创建时间'})
+    createTime: Date;
+
 }
 
