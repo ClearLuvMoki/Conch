@@ -9,54 +9,49 @@
     "checkJs": false,
     "resolveJsonModule": true,
     "jsx": "react-jsx",
-    "module": "commonjs",
+    "module": "ESNext",
     "strict": false,
     "noUnusedLocals": true,
     "emitDecoratorMetadata": true,
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "experimentalDecorators": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
     "allowSyntheticDefaultImports": true,
     "paths": {
-      "@/constant/*": [
-        "./src/constant/*"
+      "@/Constant/*": [
+        "./src/Constant/*"
       ],
       "@/src/*": [
         "./src/*"
       ],
       "@/types/*": [
-        "./src/types/*"
+        "../../src/types/*"
       ],
       "@/Components/*": [
-        "./src/render/Components/*"
+        "./src/Components/*"
       ],
       "@/Layout/*": [
-        "./src/render/Layout/*"
+        "./src/Layout/*"
       ],
       "@/Pages/*": [
-        "./src/render/Pages/*"
+        "./src/Pages/*"
       ],
       "@/Router/*": [
-        "./src/render/Router/*"
-      ],
-      "@/Utils/*": [
-        "./src/render/Utils/*"
+        "./src/Router/*"
       ],
       "@/RIpc/*": [
-        "./src/render/RIpc/*"
+        "../../src/render/RIpc/*"
       ],
-      "@/resources/*": [
-        "./app/resources/*"
+      "@/Utils/*": [
+        "./src/Utils/*"
+      ],
+      "@/Stores/*": [
+        "./src/Stores/*"
       ]
     }
   },
   "include": [
     "src"
-  ],
-  "ts-node": {
-    "require": [
-      "tsconfig-paths/register"
-    ]
-  }
+  ]
 }

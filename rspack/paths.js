@@ -3,6 +3,8 @@ const path = require('path');
 const rootPath = path.join(__dirname, '../');
 
 const srcPath = path.join(rootPath, './src');
+const packagesPath = path.join(rootPath, './packages');
+const packagesThinkRootPath = path.join(packagesPath, './Think');
 
 const srcMainPath = path.join(srcPath, './main');
 const srcRendererPath = path.join(srcPath, './render');
@@ -24,4 +26,6 @@ module.exports = {
     distPath,
     releaseMainPath,
     releaseRendererPath,
+    packagesPath,
+    packagesThinkRootPath
 };

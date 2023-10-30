@@ -2,6 +2,7 @@
 import {Button} from "@nextui-org/react";
 import {SidebarWidth} from "@/src/constant/ui";
 import {useNavigate} from "react-router-dom"
+import {RootRouterChildren} from "@/Router/index";
 
 const Sidebar = () => {
         const navigate = useNavigate();
@@ -12,26 +13,21 @@ const Sidebar = () => {
                 }}
                 className={"h-full bg-PrimaryBackground flex flex-col justify-center items-center drag-window"}
             >
-                < Button
-                    color="primary"
-                    isIconOnly
-                    onClick={() => {
-                        navigate("/", {replace: true})
-                    }}
-                    className={"text-[#fff] no-drag-window"}
-                >
-                    Ho
-                </Button>
-                <Button
-                    color="primary"
-                    isIconOnly
-                    onClick={() => {
-                        navigate("/login", {replace: true})
-                    }}
-                    className={"text-[#fff] no-drag-window"}
-                >
-                    LO
-                </Button>
+                {
+                    RootRouterChildren.map(menu => (
+                        < Button
+                            color="primary"
+                            isIconOnly
+                            key={menu.path}
+                            onClick={() => {
+                                navigate(menu.path, {replace: true})
+                            }}
+                            className={"text-white no-drag-window"}
+                        >
+                            {menu.icon}
+                        </Button>
+                    ))
+                }
             </div>
         )
             ;

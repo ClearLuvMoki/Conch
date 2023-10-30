@@ -21,6 +21,7 @@ const CommonConfig = {
             '@/Utils': join(srcRendererPath, '/Utils'),
             '@/Router': join(srcRendererPath, '/Router'),
             '@/Layout': join(srcRendererPath, '/Layout'),
+            '@/RIpc': join(srcRendererPath, '/RIpc'),
             // '@/store': join(srcRendererPath, '/store'),
             // '@/logger': join(srcRendererPath, '/logger'),
             // '@/hooks': join(srcRendererPath, '/hooks'),

@@ -3,6 +3,7 @@ import {DataSource} from "typeorm";
 import {BetterSqlite3ConnectionOptions} from "typeorm/driver/better-sqlite3/BetterSqlite3ConnectionOptions";
 import {app} from "electron";
 import {UserEntity} from "./User/user.entity";
+import {WikiEntity} from "./Wiki/wiki.entity";
 
 export class DataBase {
     dataSource: DataSource;
@@ -16,7 +17,7 @@ export class DataBase {
         );
         let options: BetterSqlite3ConnectionOptions = {
             type: "better-sqlite3",
-            entities: [UserEntity],
+            entities: [UserEntity, WikiEntity],
             database: basePath,
             synchronize: true,
             logging: ["error"],

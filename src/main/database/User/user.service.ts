@@ -24,12 +24,11 @@ class UserService {
                     this.dataSource.initialize();
                     resolve("初始化成功!");
                 } else {
-                    console.log()
                     resolve("已经初始化成功!")
                 }
             } catch (e) {
-                console.log("初始化失败!", e)
                 reject(e)
+                MainLogger.error(`UserDatabase 初始化失败: ${JSON.stringify(e)}`)
             }
         })
     }

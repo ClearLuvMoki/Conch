@@ -99,7 +99,7 @@ const LoginForm = () => {
                     重置
                 </Button>
                 <Button
-                    className={"w-1/2 text-white"}
+                    className={"w-1/2"}
                     fullWidth={true}
                     variant="shadow"
                     color="primary"

@@ -44,9 +44,9 @@ const WifiGridCard = React.memo(() => {
 
     const handleGetCurrentWifi = () => {
         InjectEnv.invoke(IpcChannels.os.wifi, {type: "current"})
-            .then((res) => {
+            .then((res: any) => {
                 if (res) {
-                    const current = JSON.parse(res)?.[0] ?? {};
+                    const current = JSON.parse(res || "{}")?.[0] ?? {};
                     setState((prevState) => ({...prevState, params: current}))
                 }
             })
