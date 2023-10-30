@@ -6,12 +6,15 @@ import InjectEnv from "@/src/render/RIpc/InjectEnv";
 import IpcChannels from "@/src/common/IpcChannels";
 import {IpcResults, IpcResultsCode} from "@/types/ipc";
 import toast from "react-hot-toast";
-import {LoginFormContext} from "@/Pages/Login";
+import {handleLogin, LoginFormContext} from "@/Pages/Login";
+import {UserTypes} from "@/types/user";
+import {useNavigate} from "react-router-dom";
 
 const LoginForm = () => {
     const {state, setState} = useContext(LoginFormContext);
+    const navigator = useNavigate();
 
-    const handleLogin = () => {
+    const handleClickSubmit = () => {
         setState({
             ...state,
             loading: true
@@ -20,12 +23,15 @@ const LoginForm = () => {
             nickName: state.loginFormData.nickName,
             password: state.loginFormData.password
         })
-            .then((res: IpcResults<any, string>) => {
+            .then((res: IpcResults<UserTypes, string>) => {
                 if (res.code === IpcResultsCode.error) {
                     toast.error(res.errMsg)
                 } else {
-                    console.log(res, 'ress')
                     toast.success("登录成功!")
+                    handleLogin(res.data, () => {
+                        navigator("/", {replace: true})
+                    })
+
                 }
             })
             .finally(() => {
@@ -98,7 +104,7 @@ const LoginForm = () => {
                     variant="shadow"
                     color="primary"
                     onPress={() => {
-                        handleLogin()
+                        handleClickSubmit()
                     }}
                 >
                     注册

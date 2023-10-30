@@ -1,18 +1,21 @@
 import Icon from "@/resources/desktop-icon.png"
 import {Divider, Image,} from "@nextui-org/react";
 import {motion} from "framer-motion";
-import React, {createContext, useState} from "react";
+import React, {createContext, useEffect, useState} from "react";
 import LoginForm from "./components/LoginForm";
 import LoginAccounts from "./components/LoginAccounts";
+import {UserTypes} from "@/types/user";
+import {setStore} from "@/Utils/tools";
+import {LocalStorageKeys} from "@/src/common/LocalStorageKeys";
+import InjectEnv from "@/src/render/RIpc/InjectEnv";
+import IpcChannels from "@/src/common/IpcChannels";
+import {IpcResults, IpcResultsCode} from "@/types/ipc";
 
 interface State {
     loginStatus: "LoginForm" | "LoginAccounts"
-    loginFormData: {
-        nickName: string;
-        password: string;
-    };
+    loginFormData: Partial<UserTypes>;
     loading: boolean;
-    loginAccounts: { id: string, nickName: string; password: string; createTime: string }[]
+    loginAccounts: UserTypes[]
 }
 
 interface ContextState {
@@ -22,6 +25,12 @@ interface ContextState {
 
 
 export const LoginFormContext = createContext<ContextState>(undefined);
+
+
+export const handleLogin = (user: UserTypes, callback?: () => void) => {
+    setStore(LocalStorageKeys.user.info, JSON.stringify(user ?? {}))
+    callback && callback();
+}
 
 const Login = () => {
     const [state, setState] = useState<State>({
@@ -33,6 +42,18 @@ const Login = () => {
         loading: false,
         loginAccounts: []
     })
+
+    useEffect(() => {
+        InjectEnv.invoke(IpcChannels.user.find_all_user)
+            .then((res: IpcResults<UserTypes[], any>) => {
+                if (res.code === IpcResultsCode.success && res?.data?.length > 0) {
+                    setState({
+                        ...state,
+                        loginStatus: "LoginAccounts"
+                    })
+                }
+            })
+    }, [])
 
     return (
         <LoginFormContext.Provider

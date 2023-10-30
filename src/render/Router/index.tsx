@@ -4,12 +4,8 @@ import Home from "@/Pages/Home";
 import ErrorPage from "@/Pages/ErrorPage";
 import Login from "@/Pages/Login";
 import {getStore} from "@/Utils/tools";
+import {LocalStorageKeys} from "@/src/common/LocalStorageKeys";
 
-export const handleLoginAction = async ({request}) => {
-    console.log(request, 'request')
-    // const userInfo = getStore("user-info");
-    // return !userInfo?.id &&
-}
 
 export const router = createHashRouter([
     {
@@ -17,7 +13,7 @@ export const router = createHashRouter([
         element: <Layout/>,
         errorElement: <ErrorPage/>,
         loader: async () => {
-            const user = getStore("user-info");
+            const user = getStore(LocalStorageKeys.user.info);
             if (!user) {
                 return redirect("/login");
             }

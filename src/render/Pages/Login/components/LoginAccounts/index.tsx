@@ -1,18 +1,35 @@
 import {motion} from 'framer-motion';
-import {Button, Card, CardBody} from "@nextui-org/react";
-import {AiOutlineArrowRight} from "react-icons/ai";
-import {useContext, useEffect} from "react";
-import {LoginFormContext} from "@/Pages/Login";
+import {Button, Card, CardBody, CardFooter} from "@nextui-org/react";
+import {AiOutlineArrowRight, AiOutlineDelete} from "react-icons/ai";
+import {useContext, useEffect, useState} from "react";
+import {handleLogin, LoginFormContext} from "@/Pages/Login";
 import InjectEnv from "@/src/render/RIpc/InjectEnv";
 import IpcChannels from "@/src/common/IpcChannels";
 import {IpcResultsCode} from "@/types/ipc";
 import {Avatar, AvatarGroup, User} from "@nextui-org/react";
 import dayjs from "dayjs";
+import {UserTypes} from "@/types/user";
+import {useNavigate} from "react-router-dom";
+import toast from "react-hot-toast";
 
 const LoginAccounts = () => {
     const {state, setState} = useContext(LoginFormContext);
+    const [chooseAccount, setChooseAccount] = useState<UserTypes>(null);
+    const navigator = useNavigate();
+
 
     useEffect(() => {
+        if (state.loginAccounts?.length) {
+            setChooseAccount(state.loginAccounts[0])
+        }
+    }, [state.loginAccounts])
+
+
+    useEffect(() => {
+        handleGetAllUserAccounts();
+    }, [])
+
+    const handleGetAllUserAccounts = () => {
         InjectEnv.invoke(IpcChannels.user.find_all_user)
             .then((res) => {
                 if (res.code === IpcResultsCode.success) {
@@ -22,7 +39,21 @@ const LoginAccounts = () => {
                     })
                 }
             })
-    }, [])
+    }
+
+    const handleDelete = (id: string) => {
+        InjectEnv.invoke(IpcChannels.user.delete_user, {id})
+            .then(() => {
+                toast.success("删除成功!")
+            })
+            .catch(() => {
+                toast.error("删除失败!")
+            })
+            .finally(() => {
+                handleGetAllUserAccounts();
+            })
+    }
+
 
     return (
         <motion.div
@@ -35,24 +66,55 @@ const LoginAccounts = () => {
                 state.loginAccounts?.length > 0 ? (
                     <div>
                         {
-                            state.loginAccounts?.length > 0 && (
-                                <Card className={"mb-4 cursor-pointer"}>
-                                    <CardBody>
+                            chooseAccount?.id && (
+                                <Card
+                                    className={"mb-4 cursor-pointer"}
+                                    key={chooseAccount.id}
+                                    isPressable
+                                >
+                                    <CardBody className={"pb-0"}>
                                         <User
-                                            name={state.loginAccounts[0].nickName}
+                                            name={chooseAccount.nickName}
                                             isFocusable={true}
                                             description={(
-                                                <span>CreateTime: {dayjs(state.loginAccounts[0].createTime ?? "").format("YYYY.MM.DD HH:mm")}</span>
+                                                <span>CreateTime: {dayjs(chooseAccount.createTime ?? "").format("YYYY.MM.DD HH:mm")}</span>
                                             )}
+                                            onClick={() => {
+                                                handleLogin(chooseAccount, () => {
+                                                    navigator("/", {replace: true})
+                                                })
+                                            }}
                                         />
                                     </CardBody>
+                                    <CardFooter
+                                        className="flex justify-end pb-1"
+                                    >
+                                        <Button
+                                            variant={"light"}
+                                            isIconOnly
+                                            size={"sm"}
+                                            onPress={() => {
+                                                handleDelete(chooseAccount.id)
+                                            }}
+                                        >
+                                            <AiOutlineDelete/>
+                                        </Button>
+                                    </CardFooter>
                                 </Card>
                             )
                         }
-                        <AvatarGroup isBordered>
+                        <AvatarGroup
+                            isBordered
+                        >
                             {
                                 state.loginAccounts.map(avatar => (
-                                    <Avatar name={avatar.nickName} key={avatar.id}/>
+                                    <Avatar
+                                        className={"cursor-pointer"}
+                                        name={avatar.nickName} key={avatar.id}
+                                        onClick={() => {
+                                            setChooseAccount(avatar)
+                                        }}
+                                    />
                                 ))
                             }
                         </AvatarGroup>

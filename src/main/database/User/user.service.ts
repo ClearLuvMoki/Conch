@@ -33,15 +33,67 @@ class UserService {
         })
     }
 
-    public async getInfo() {
-        this.databaseInit()
-            .then((res) => {
-                MainLogger.info(res)
-            })
-            .catch((e) => {
-                MainLogger.error(JSON.stringify(e))
-            })
+    public async getAllUserAccounts(): Promise<UserEntity[]> {
+        return new Promise(async (resolve, reject) => {
+            try {
+                await this.databaseInit();
+                const [findErr, findUsers] = await to(
+                    this.dataSource
+                        .createQueryBuilder(UserEntity, "user")
+                        .getMany()
+                );
+                if (findErr) {
+                    return reject(findErr);
+                }
+                return resolve(findUsers);
+            } catch (e) {
+                reject(e);
+            }
+        })
     }
+
+    public async deleteUserById(id: string) {
+        console.log(id, 'id')
+        return new Promise(async (resolve, reject) => {
+            try {
+                await this.databaseInit();
+                const [findErr, findUsers] = await to(
+                    this.dataSource
+                        .createQueryBuilder(UserEntity, "user")
+                        .where("user.id = :id", {id})
+                        .delete()
+                        .execute()
+                );
+                if (findErr) {
+                    return reject(findErr);
+                }
+                return resolve(findUsers);
+            } catch (e) {
+                reject(e);
+            }
+        })
+    }
+
+    private async getUserByName(nickName: string): Promise<UserEntity[]> {
+        return new Promise(async (resolve, reject) => {
+            try {
+                await this.databaseInit();
+                const [findErr, findUsers] = await to(
+                    this.dataSource
+                        .createQueryBuilder(UserEntity, "user")
+                        .where("user.nickName = :nickName", {nickName})
+                        .getMany()
+                );
+                if (findErr) {
+                    return reject(findErr);
+                }
+                return resolve(findUsers);
+            } catch (e) {
+                reject(e);
+            }
+        })
+    }
+
 
     public async addUser(user: UserEntity): Promise<IpcResults<any, string>> {
         return new Promise(async (resolve) => {
@@ -65,11 +117,7 @@ class UserService {
                         errMsg: errMessage
                     })
                 }
-                const [findErr, findUsers] = await to(
-                    this.dataSource
-                        .createQueryBuilder(UserEntity, "user")
-                        .getMany()
-                );
+                const [findErr, findUsers] = await to(this.getAllUserAccounts());
                 if (findErr) {
                     return resolve({
                         code: IpcResultsCode.error,
@@ -80,6 +128,20 @@ class UserService {
                     return resolve({
                         code: IpcResultsCode.error,
                         errMsg: "本地账号数最多只能新建三个!"
+                    })
+                }
+
+                const [findByNameErr, findByNameUsers] = await to(this.getUserByName(data.nickName));
+                if (findByNameErr) {
+                    return resolve({
+                        code: IpcResultsCode.error,
+                        errMsg: JSON.stringify(findByNameErr)
+                    })
+                }
+                if (findByNameUsers?.length > 0) {
+                    return resolve({
+                        code: IpcResultsCode.error,
+                        errMsg: "本地已存在相同名称账户!"
                     })
                 }
 
@@ -134,6 +196,9 @@ class UserService {
         });
         ipcMain.handle(IpcChannels.user.find_all_user, (_) => {
             return this.findAllAccounts();
+        })
+        ipcMain.handle(IpcChannels.user.delete_user, (_, {id}) => {
+            return this.deleteUserById(id);
         })
     }
 }
