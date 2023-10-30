@@ -3,9 +3,12 @@ import {IsNotEmpty} from "class-validator";
 
 @Entity("users")
 export class UserEntity {
-    @PrimaryGeneratedColumn('uuid', {comment: '主键'})
+    @PrimaryGeneratedColumn('uuid')
     id: string;
 
+    @Column("text", {nullable: true})
+    @IsNotEmpty({message: "UserID不能为空!"})
+    userId: string;
 
     @Column("text", {nullable: true})
     @IsNotEmpty({message: "昵称不能为空!"})

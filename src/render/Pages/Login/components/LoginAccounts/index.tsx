@@ -1,5 +1,5 @@
 import {motion} from 'framer-motion';
-import {Button, Card, CardBody, CardFooter} from "@nextui-org/react";
+import {Button, Card, CardBody, CardFooter, Spacer} from "@nextui-org/react";
 import {AiOutlineArrowRight, AiOutlineDelete} from "react-icons/ai";
 import {useContext, useEffect, useState} from "react";
 import {handleLogin, LoginFormContext} from "@/Pages/Login";
@@ -41,8 +41,8 @@ const LoginAccounts = () => {
             })
     }
 
-    const handleDelete = (id: string) => {
-        InjectEnv.invoke(IpcChannels.user.delete_user, {id})
+    const handleDelete = (userId: string) => {
+        InjectEnv.invoke(IpcChannels.user.delete_user, {userId})
             .then(() => {
                 toast.success("删除成功!")
             })
@@ -79,25 +79,35 @@ const LoginAccounts = () => {
                                             description={(
                                                 <span>CreateTime: {dayjs(chooseAccount.createTime ?? "").format("YYYY.MM.DD HH:mm")}</span>
                                             )}
-                                            onClick={() => {
+                                        />
+                                    </CardBody>
+                                    <CardFooter
+                                        className=" bg-white/30 bottom-0 border-t-1 border-zinc-100/50 z-10 justify-end"
+                                    >
+                                        <Button
+                                            color={"primary"}
+                                            isIconOnly
+                                            size={"sm"}
+                                            radius={"full"}
+                                            onPress={() => {
                                                 handleLogin(chooseAccount, () => {
                                                     navigator("/", {replace: true})
                                                 })
                                             }}
-                                        />
-                                    </CardBody>
-                                    <CardFooter
-                                        className="flex justify-end pb-1"
-                                    >
+                                        >
+                                            <AiOutlineArrowRight size={18} color={"white"}/>
+                                        </Button>
+                                        <Spacer x={2}/>
                                         <Button
-                                            variant={"light"}
+                                            color={"danger"}
                                             isIconOnly
                                             size={"sm"}
+                                            radius={"full"}
                                             onPress={() => {
-                                                handleDelete(chooseAccount.id)
+                                                handleDelete(chooseAccount.userId)
                                             }}
                                         >
-                                            <AiOutlineDelete/>
+                                            <AiOutlineDelete size={18}/>
                                         </Button>
                                     </CardFooter>
                                 </Card>

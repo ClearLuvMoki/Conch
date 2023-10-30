@@ -7,6 +7,7 @@ import {ipcMain} from "electron";
 import IpcChannels from "@/src/common/IpcChannels";
 import {IpcResults, IpcResultsCode} from "@/types/ipc";
 import {UserEntity} from "@/src/main/database/User/user.entity";
+import {nanoid} from 'nanoid'
 
 
 class UserService {
@@ -52,16 +53,15 @@ class UserService {
         })
     }
 
-    public async deleteUserById(id: string) {
-        console.log(id, 'id')
+    public async deleteUserById(userId: string) {
         return new Promise(async (resolve, reject) => {
             try {
                 await this.databaseInit();
                 const [findErr, findUsers] = await to(
                     this.dataSource
                         .createQueryBuilder(UserEntity, "user")
-                        .where("user.id = :id", {id})
                         .delete()
+                        .where("userId = :userId", {userId})
                         .execute()
                 );
                 if (findErr) {
@@ -81,7 +81,7 @@ class UserService {
                 const [findErr, findUsers] = await to(
                     this.dataSource
                         .createQueryBuilder(UserEntity, "user")
-                        .where("user.nickName = :nickName", {nickName})
+                        .where("nickName = :nickName", {nickName})
                         .getMany()
                 );
                 if (findErr) {
@@ -102,6 +102,7 @@ class UserService {
                 const data = new UserEntity();
                 data.nickName = user?.nickName;
                 data.password = user?.password;
+                data.userId = nanoid();
                 const [validateErr, validateRes] = await to(validate(data));
                 if (validateErr) {
                     return resolve({
@@ -197,8 +198,8 @@ class UserService {
         ipcMain.handle(IpcChannels.user.find_all_user, (_) => {
             return this.findAllAccounts();
         })
-        ipcMain.handle(IpcChannels.user.delete_user, (_, {id}) => {
-            return this.deleteUserById(id);
+        ipcMain.handle(IpcChannels.user.delete_user, (_, {userId}) => {
+            return this.deleteUserById(userId);
         })
     }
 }
