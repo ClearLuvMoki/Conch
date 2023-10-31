@@ -1,4 +1,4 @@
-import {$WikiStore, WikiStore} from "@/Stores/Wiki";
+import {$WikiStore, WikiStore} from "./Wiki";
 
 
 const Stores: {

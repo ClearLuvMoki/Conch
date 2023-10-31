@@ -23,7 +23,7 @@ const CommonConfig = {
             '@/Layout': join(srcRendererPath, '/Layout'),
             '@/RIpc': join(srcRendererPath, '/RIpc'),
             '@/Hooks': join(srcRendererPath, '/Hooks'),
-            // '@/store': join(srcRendererPath, '/store'),
+            '@/Stores': join(srcRendererPath, '/Stores'),
             // '@/logger': join(srcRendererPath, '/logger'),
             // '@/hooks': join(srcRendererPath, '/hooks'),
             '@/resources': join(rootPath, './app/resources/'),

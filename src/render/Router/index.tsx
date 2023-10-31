@@ -16,13 +16,13 @@ const IconConfig: IconBaseProps = {
 export const RootRouterChildren: Array<RouteObject & { name: string, icon: React.ReactNode }> = [
     {
         path: "/",
-        index: true,
         element: <Home/>,
         name: "主页",
         icon: <AiOutlineHome {...IconConfig}/>
     },
     {
         path: "/think",
+        index: true,
         element: <Think/>,
         name: "知识库",
         icon: <AiOutlineEdit {...IconConfig}/>

@@ -10,6 +10,9 @@ const IpcChannels = {
     os: {
         get_system_info: "get:system_info",
         wifi: "handle:wifi"
+    },
+    wiki: {
+        get_all_wiki_user: "get:all_wiki_user"
     }
 }
 

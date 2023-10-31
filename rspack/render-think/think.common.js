@@ -16,6 +16,7 @@ const CommonConfig = {
     resolve: {
         alias: {
             '@/src': join(packagesThinkRootPath, './src'),
+            '@/common': join(srcPath, './common'),
             '@/Constant': join(packagesThinkRootPath, './src/Constant'),
             '@/Components': join(packagesThinkRootPath, './src/Components'),
             '@/Pages': join(packagesThinkRootPath, './src/Pages'),

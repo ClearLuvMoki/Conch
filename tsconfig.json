@@ -40,6 +40,9 @@
       "@/Router/*": [
         "./src/render/Router/*"
       ],
+      "@/Stores/*": [
+        "./src/render/Stores/*"
+      ],
       "@/Utils/*": [
         "./src/render/Utils/*"
       ],

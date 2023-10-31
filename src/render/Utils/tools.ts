@@ -24,3 +24,11 @@ export const deleteStore = (key: string) => {
         return void 0;
     }
 };
+
+export const jsonParse = (str: string, defaults?: any) => {
+    try {
+        return JSON.parse(str);
+    } catch (e) {
+        return defaults || null;
+    }
+};

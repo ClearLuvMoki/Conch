@@ -4,10 +4,14 @@ import {NextUIProvider} from "@nextui-org/react";
 import {RouterProvider} from "react-router-dom";
 import {router} from "./Router";
 import {Toaster} from 'react-hot-toast';
+import Stores from "../../packages/Think/src/Stores";
+import {Provider} from "mobx-react";
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-    <NextUIProvider className={"w-full h-full overflow-hidden"}>
-        <Toaster/>
-        <RouterProvider router={router}/>
-    </NextUIProvider>
+    <Provider store={Stores}>
+        <NextUIProvider className={"w-full h-full overflow-hidden"}>
+            <Toaster/>
+            <RouterProvider router={router}/>
+        </NextUIProvider>
+    </Provider>
 )

@@ -11,6 +11,10 @@ export class WikiEntity {
     wikiId: string;
 
     @Column("text", {nullable: true})
+    @IsNotEmpty({message: "UserId不能为空!"})
+    userId: string;
+
+    @Column("text", {nullable: true})
     @IsNotEmpty({message: "知识库名称不能为空!"})
     title: string;
 

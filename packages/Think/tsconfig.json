@@ -25,6 +25,9 @@
       "@/src/*": [
         "./src/*"
       ],
+      "@/common/*": [
+        "../../src/common/*"
+      ],
       "@/types/*": [
         "../../src/types/*"
       ],

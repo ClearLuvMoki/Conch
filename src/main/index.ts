@@ -48,18 +48,14 @@ const createWindow = async () => {
             devTools: true,
             webviewTag: true,
             nodeIntegration: true,
-            webSecurity: false,
-            allowRunningInsecureContent: true,
             nodeIntegrationInSubFrames: true,
-            plugins: true,
             preload: resolve(__dirname, isDev ? "../preload/index.js" : "./preload.js")
         },
     });
     initData();
     initDatabase();
-    return mainWindow.loadURL(LoadUrl)
+    mainWindow.loadURL(LoadUrl)
 }
 app.whenReady().then(() => {
-    return createWindow();
+    createWindow();
 });
-

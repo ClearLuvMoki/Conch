@@ -22,14 +22,14 @@ let Config = {
     devServer: {
         port: process.env.PORT || 8888,
         setupMiddlewares(middlewares) {
-            let thinkArgs = ['run', 'dev:think'];
-            spawn('npm', thinkArgs, {
-                shell: true,
-                stdio: 'ignore',
-            })
-                .on('error', (spawnError) => {
-                    console.log(`Rspack --- Render Think Server err:${spawnError}`);
-                });
+            // let thinkArgs = ['run', 'dev:think'];
+            // spawn('npm', thinkArgs, {
+            //     shell: true,
+            //     stdio: 'ignore',
+            // })
+            //     .on('error', (spawnError) => {
+            //         console.log(`Rspack --- Render Think Server err:${spawnError}`);
+            //     });
             let args = ['run', 'dev:main'];
             spawn('npm', args, {
                 shell: true,

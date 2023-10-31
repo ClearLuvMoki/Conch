@@ -39,7 +39,7 @@
     "cross-env": "^7.0.3",
     "dayjs": "^1.11.10",
     "deep-equal": "^2.2.2",
-    "electron": "^27.0.1",
+    "electron": "^27.0.2",
     "electron-builder": "^24.6.4",
     "electron-log": "^4.4.8",
     "electronmon": "^2.0.2",
@@ -113,5 +113,6 @@
       "shortcutName": "Conch",
       "deleteAppDataOnUninstall": true
     }
-  }
+  },
+  "packageManager": "yarn@4.0.1"
 }
