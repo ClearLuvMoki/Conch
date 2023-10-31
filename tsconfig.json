@@ -46,6 +46,9 @@
       "@/RIpc/*": [
         "./src/render/RIpc/*"
       ],
+      "@/Hooks/*": [
+        "./src/render/Hooks/*"
+      ],
       "@/resources/*": [
         "./app/resources/*"
       ]

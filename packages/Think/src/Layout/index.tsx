@@ -4,7 +4,7 @@ import Sidebar from "./components/Siderbar";
 
 const Layout = () => {
     return (
-        <div className={"w-full h-full overflow-hidden bg-[#fff]"}>
+        <div className={"w-full h-full overflow-hidden bg-[#fff] p-4"}>
             <Sidebar/>
             <div
                 className={"overflow-hidden h-full"}

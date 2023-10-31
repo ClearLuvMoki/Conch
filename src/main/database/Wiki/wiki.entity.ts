@@ -17,7 +17,7 @@ export class WikiEntity {
     @Column("text", {nullable: true})
     avatar: string;
 
-    @Column("longtext", {nullable: true})
+    @Column("text", {nullable: true})
     description: string;
 
     @CreateDateColumn({comment: '创建时间'})
