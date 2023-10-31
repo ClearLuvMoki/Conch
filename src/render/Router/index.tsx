@@ -2,12 +2,11 @@ import {createHashRouter, redirect, RouteObject} from "react-router-dom";
 import Layout from "@/Layout/index";
 import ErrorPage from "@/Pages/ErrorPage";
 import Login from "@/Pages/Login";
-import {getStore} from "@/Utils/tools";
-import {LocalStorageKeys} from "@/src/common/LocalStorageKeys";
 import {AiOutlineEdit, AiOutlineHome} from "react-icons/ai";
 import {IconBaseProps} from "react-icons/lib/cjs/iconBase";
 import Think from "@/Pages/Think";
 import Home from "@/Pages/Home";
+import {UserStore} from "@/Stores/User";
 
 const IconConfig: IconBaseProps = {
     size: 20
@@ -16,16 +15,16 @@ const IconConfig: IconBaseProps = {
 export const RootRouterChildren: Array<RouteObject & { name: string, icon: React.ReactNode }> = [
     {
         path: "/",
+        index: true,
         element: <Home/>,
         name: "主页",
         icon: <AiOutlineHome {...IconConfig}/>
     },
     {
         path: "/think",
-        index: true,
         element: <Think/>,
         name: "知识库",
-        icon: <AiOutlineEdit {...IconConfig}/>
+        icon: <AiOutlineEdit {...IconConfig}/>,
     }
 ]
 
@@ -35,8 +34,8 @@ export const router = createHashRouter([
         element: <Layout/>,
         errorElement: <ErrorPage/>,
         loader: async () => {
-            const user = getStore(LocalStorageKeys.user.info);
-            if (!user) {
+            const user = UserStore.getUserInfo()
+            if (!user?.id) {
                 return redirect("/login");
             }
             return null;

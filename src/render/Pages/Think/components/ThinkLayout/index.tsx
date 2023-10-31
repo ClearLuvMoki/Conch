@@ -1,14 +1,20 @@
-import {SidebarHeight} from "@/Constant/ui";
-import {Button, Dropdown, DropdownItem, DropdownMenu, DropdownTrigger, Spacer} from "@nextui-org/react";
+import {Button, Spacer, Dropdown, DropdownTrigger, DropdownItem, DropdownMenu} from "@nextui-org/react";
+import {WikiStore} from "@/Stores/WIki";
 
-const Sidebar = () => {
+const ThinkLayout = () => {
+
+    const handleWikiActions = (keys: string) => {
+        switch (keys) {
+            case "create-wiki":
+                return WikiStore.updateWikiModalState({isOpen: true})
+        }
+    }
+
+
     return (
-        <div
-            className={"w-full flex  justify-end px-4 items-center"}
-            style={{height: SidebarHeight}}
-        >
+        <div className={"w-full px-4 flex justify-end"}>
             <Button
-                color={"primary"}
+                color="primary"
                 variant={"shadow"}
             >
                 主页
@@ -17,13 +23,13 @@ const Sidebar = () => {
             <Dropdown>
                 <DropdownTrigger>
                     <Button
-                        color={"primary"}
+                        color="primary"
                         variant={"shadow"}
                     >
                         最近
                     </Button>
                 </DropdownTrigger>
-                <DropdownMenu aria-label="Static Actions" color={"primary"}>
+                <DropdownMenu aria-label="Static Actions">
                     <DropdownItem key="new">New file</DropdownItem>
                     <DropdownItem key="copy">Copy link</DropdownItem>
                     <DropdownItem key="edit">Edit file</DropdownItem>
@@ -36,23 +42,20 @@ const Sidebar = () => {
             <Dropdown>
                 <DropdownTrigger>
                     <Button
-                        color={"primary"}
+                        color="primary"
                         variant={"shadow"}
                     >
                         知识库
                     </Button>
                 </DropdownTrigger>
-                <DropdownMenu aria-label="Static Actions" color={"primary"}>
-                    <DropdownItem key="new">New file</DropdownItem>
-                    <DropdownItem key="copy">Copy link</DropdownItem>
-                    <DropdownItem key="edit">Edit file</DropdownItem>
-                    <DropdownItem key="delete" className="text-danger" color="danger">
-                        Delete file
-                    </DropdownItem>
+                <DropdownMenu
+                    onAction={handleWikiActions}
+                >
+                    <DropdownItem key="create-wiki">创建知识库</DropdownItem>
                 </DropdownMenu>
             </Dropdown>
         </div>
     );
 };
 
-export default Sidebar;
+export default ThinkLayout;

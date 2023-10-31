@@ -14,7 +14,7 @@ class UserService {
     dataSource: DataSource;
 
     constructor() {
-        this.dataSource = new DataBase("user").dataSource;
+        this.dataSource = new DataBase("index").dataSource;
     }
 
     public async databaseInit() {

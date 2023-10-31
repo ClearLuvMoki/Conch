@@ -12,7 +12,8 @@ const IpcChannels = {
         wifi: "handle:wifi"
     },
     wiki: {
-        get_all_wiki_user: "get:all_wiki_user"
+        get_all_wiki_user: "get:all_wiki_user",
+        add_wiki_user: "get:add_wiki_user",
     }
 }
 

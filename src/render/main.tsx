@@ -4,8 +4,8 @@ import {NextUIProvider} from "@nextui-org/react";
 import {RouterProvider} from "react-router-dom";
 import {router} from "./Router";
 import {Toaster} from 'react-hot-toast';
-import Stores from "../../packages/Think/src/Stores";
 import {Provider} from "mobx-react";
+import Stores from "@/Stores/index";
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
     <Provider store={Stores}>

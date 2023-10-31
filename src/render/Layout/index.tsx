@@ -5,10 +5,13 @@ import {useLayoutEffect} from "react";
 import InjectEnv from "@/src/render/RIpc/InjectEnv";
 import IpcChannels from "@/src/common/IpcChannels";
 import {logger} from "@/Utils/logger";
+import {UserStore} from "@/Stores/User";
+import CommonComponents from "@/Layout/components/CommonComponents";
 
 const Layout = () => {
     useLayoutEffect(() => {
         handleInitIpc()
+        UserStore.initUserData();
     }, [])
 
     const handleInitIpc = () => {
@@ -21,6 +24,7 @@ const Layout = () => {
     return (
         <div className={"w-full h-full overflow-hidden bg-[#fff] flex"}>
             <Sidebar/>
+            <CommonComponents/>
             <div
                 className={"overflow-hidden h-full"}
                 style={{

@@ -7,7 +7,7 @@ export type IpcResults<T, E> = IpcResultsSuccess<T> | IpcResultsError<E>
 
 interface IpcResultsSuccess<T> {
     code: IpcResultsCode.success,
-    data: T;
+    data?: T;
 }
 
 interface IpcResultsError<E> {

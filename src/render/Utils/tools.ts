@@ -1,14 +1,12 @@
 export const getStore = (key: string) => {
     try {
-        const item = localStorage.getItem(key) || '';
-        return item;
+        return localStorage.getItem(key) || '';
     } catch (e) {
-        console.log(e);
         return void 0;
     }
 };
 
-export const setStore = (key: string, value: string) => {
+export const setStore = (key: string, value: any) => {
     try {
         localStorage.setItem(key, value);
     } catch (e) {
@@ -29,6 +27,7 @@ export const jsonParse = (str: string, defaults?: any) => {
     try {
         return JSON.parse(str);
     } catch (e) {
+        console.log("解析失败", e)
         return defaults || null;
     }
 };
