@@ -5,6 +5,7 @@ declare global {
         __IPC__: {
             invoke: (channel: string, ...arg: any[]) => Promise<any>;
             ipcOn: (channel: string, func: (event: IpcRendererEvent, ...arg: unknown[]) => void) => Electron.IpcRenderer;
+            ipcSend: (channel: string, ...arg: unknown[]) => void;
             ipcRemoveListener: (
                 channel: string,
                 listener: (event: IpcRendererEvent, ...arg: unknown[]) => void
