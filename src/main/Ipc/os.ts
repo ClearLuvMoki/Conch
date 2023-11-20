@@ -7,13 +7,6 @@ const os = require('node-os-utils');
 const wifi = require("node-wifi");
 
 const OSIPc = () => {
-    // 处理鼠标移出移出的点击
-    ipcMain.on(IpcChannels.os.is_need_ignore_mouse_events, (_, {isIgnore, options}: {
-        isIgnore: boolean; options: Electron.IgnoreMouseEventsOptions
-    }) => {
-        MainLogger.info(isIgnore)
-        mainWindow.setIgnoreMouseEvents(isIgnore, options)
-    })
 
     // 处理wifi信息
     ipcMain.handle(IpcChannels.os.wifi, (_, {type}: { type: "scan" | "current" | "connect" | "disconnect" }) => {

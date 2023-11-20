@@ -35,10 +35,10 @@ const initDatabase = () => {
 
 const createWindow = async () => {
     mainWindow = new BrowserWindow({
-        width: 1024,
-        minWidth: 1024,
-        height: 730,
-        minHeight: 730,
+        width: 800,
+        minWidth: 800,
+        height: 100,
+        minHeight: 100,
         useContentSize: true,
         transparent: true,
         frame: false,
