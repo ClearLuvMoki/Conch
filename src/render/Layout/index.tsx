@@ -22,11 +22,11 @@ const Layout = () => {
     return (
         <div className={"w-full h-full overflow-hidden bg-[#fff] flex rounded-lg"} style={{pointerEvents: "auto"}}>
             <CommonComponents/>
-            <div
-                className={"overflow-hidden h-full w-full"}
-            >
-                <Outlet/>
-            </div>
+            {/*<div*/}
+            {/*    className={"overflow-hidden h-full w-full"}*/}
+            {/*>*/}
+            {/*    <Outlet/>*/}
+            {/*</div>*/}
         </div>
     );
 };
