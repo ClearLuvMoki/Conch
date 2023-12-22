@@ -1,8 +1,0 @@
-{
-  "name": "conch",
-  "version": "0.1.0",
-  "private": true,
-  "main": "./dist/main/index.js",
-  "author": "ClearLuvMoki <2893096286@qq.cn>",
-  "dependencies": {}
-}

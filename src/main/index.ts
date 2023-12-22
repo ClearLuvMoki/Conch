@@ -1,37 +1,10 @@
-import {BrowserWindow, app} from "electron"
-import {OSIpc} from "./Ipc"
-import {resolve} from "path";
-import {isDev} from "@/src/main/main-utils";
-import MainLogger from "@/src/main/logger";
-import UserDatabase from "@/src/main/database/User/user.service";
-import WikiService from "@/src/main/database/Wiki/wiki.service";
+const {BrowserWindow} = require("electron")
+const { isDev } = require("./main-utils")
+const {resolve} = require("path")
+
 
 const LoadUrl: string = isDev ? `http:localhost:${process.env.PORT || 8888}` : `file://${resolve(__dirname, '../render/', 'index.html')}`;
-export let mainWindow: BrowserWindow = null;
-
-
-const iconPath = resolve(__dirname, "../../app/resources/desktop-icon.png");
-
-const initData = () => {
-    return new Promise(() => {
-        try {
-            OSIpc()
-        } catch (e) {
-            MainLogger.error(`Init IPC error: ${JSON.stringify(e)}`)
-        }
-    })
-}
-
-const initDatabase = () => {
-    return new Promise(() => {
-        try {
-            UserDatabase.init();
-            WikiService.init();
-        } catch (e) {
-            MainLogger.error(`Init Database error: ${JSON.stringify(e)}`)
-        }
-    })
-}
+export let mainWindow = null;
 
 const createWindow = async () => {
     mainWindow = new BrowserWindow({
@@ -42,7 +15,6 @@ const createWindow = async () => {
         useContentSize: true,
         transparent: true,
         frame: false,
-        icon: iconPath,
         hasShadow: true,
         webPreferences: {
             devTools: true,
@@ -52,10 +24,5 @@ const createWindow = async () => {
             preload: resolve(__dirname, isDev ? "../preload/index.js" : "./preload.js")
         },
     });
-    initData();
-    initDatabase();
     mainWindow.loadURL(LoadUrl)
 }
-app.whenReady().then(() => {
-    createWindow();
-});

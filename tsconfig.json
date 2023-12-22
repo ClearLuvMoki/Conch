@@ -17,52 +17,9 @@
     "experimentalDecorators": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
-    "allowSyntheticDefaultImports": true,
-    "paths": {
-      "@/constant/*": [
-        "./src/constant/*"
-      ],
-      "@/src/*": [
-        "./src/*"
-      ],
-      "@/types/*": [
-        "./src/types/*"
-      ],
-      "@/Components/*": [
-        "./src/render/Components/*"
-      ],
-      "@/Layout/*": [
-        "./src/render/Layout/*"
-      ],
-      "@/Pages/*": [
-        "./src/render/Pages/*"
-      ],
-      "@/Router/*": [
-        "./src/render/Router/*"
-      ],
-      "@/Stores/*": [
-        "./src/render/Stores/*"
-      ],
-      "@/Utils/*": [
-        "./src/render/Utils/*"
-      ],
-      "@/RIpc/*": [
-        "./src/render/RIpc/*"
-      ],
-      "@/Hooks/*": [
-        "./src/render/Hooks/*"
-      ],
-      "@/resources/*": [
-        "./app/resources/*"
-      ]
-    }
+    "allowSyntheticDefaultImports": true
   },
   "include": [
     "src"
-  ],
-  "ts-node": {
-    "require": [
-      "tsconfig-paths/register"
-    ]
-  }
+  ]
 }
